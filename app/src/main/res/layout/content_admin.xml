@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="elfak.diplomski.AdminActivity"
+    tools:showIn="@layout/activity_admin"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:clickable="false"
+        android:weightSum="1"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </RelativeLayout>
+
+        <!--<TextView
+            android:id="@+id/imageLabel"
+            android:text="@string/text_imageLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            />
+
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:id="@+id/imageButton"
+            android:scaleType="fitStart"
+            android:layout_gravity="center_horizontal"
+            android:alpha="0.5"
+            />-->
+
+        <FrameLayout android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/Transparent"
+            >
+            <ImageButton
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:id="@+id/imageButton"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_horizontal"
+                android:alpha="0.5"
+                >
+            </ImageButton>
+
+            <TextView
+                android:id="@+id/imageLabel"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="false"
+                android:text="@string/text_imageLabel"
+                android:textColor="@color/colorDarkGrey"
+                >
+            </TextView>
+        </FrameLayout>
+
+       <!-- <Button
+            android:id="@+id/imageButton"
+            style="?android:textAppearanceSmall"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/text_imageLabel"
+            android:textStyle="bold"
+            android:textColor="@color/light_yellow"
+            android:background="@drawable/button_border"
+            android:textSize="@dimen/font_margin_medium"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:alpha="0.7"
+            />-->
+
+
+
+            <EditText
+                android:id="@+id/name_item_admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_name"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/white"
+                android:backgroundTint="@android:color/white"
+                android:textColorHighlight="@android:color/white"
+                android:shadowColor="@android:color/white"
+                android:textColorLink="@android:color/white"
+                android:layout_marginBottom="10dp"
+                />
+
+            <EditText
+                android:id="@+id/describe_admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_describe"
+                android:inputType="text"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/white"
+                android:backgroundTint="@android:color/white"
+                android:textColorHighlight="@android:color/white"
+                android:shadowColor="@android:color/white"
+                android:textColorLink="@android:color/white"
+                android:layout_marginBottom="10dp"
+                />
+
+
+            <EditText
+                android:id="@+id/price_admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_price"
+                android:inputType="numberSigned|numberDecimal"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/white"
+                android:backgroundTint="@android:color/white"
+                android:textColorHighlight="@android:color/white"
+                android:shadowColor="@android:color/white"
+                android:textColorLink="@android:color/white"
+                android:layout_marginBottom="10dp"
+                />
+
+            <EditText
+                android:id="@+id/currency_admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_currency"
+                android:maxLength="10"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890.$#%-€"
+                android:inputType="textFilter"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/white"
+                android:backgroundTint="@android:color/white"
+                android:textColorHighlight="@android:color/white"
+                android:shadowColor="@android:color/white"
+                android:textColorLink="@android:color/white"
+                android:layout_marginBottom="10dp"
+                />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/spinner_layout"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"
+
+            />
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_category"
+            android:theme="@style/mySpinnerItemStyle"
+            android:backgroundTint="@color/white"
+            android:textAlignment="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"
+            />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/sort_number_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_sort_number"
+            android:inputType="number"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/white"
+            android:backgroundTint="@android:color/white"
+            android:textColorHighlight="@android:color/white"
+            android:shadowColor="@android:color/white"
+            android:textColorLink="@android:color/white"
+            android:maxLength="3"
+            android:layout_marginBottom="10dp"
+            />
+
+        <Button
+            android:id="@+id/save_admin"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/action_save_admin"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@drawable/button_border"
+            android:textSize="@dimen/font_margin_medium"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            />
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

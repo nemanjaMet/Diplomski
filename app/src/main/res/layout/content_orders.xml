@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="elfak.diplomski.OrdersActivity"
+    tools:showIn="@layout/activity_orders">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        android:visibility="visible"
+        android:id="@+id/rl_show_orders_items_orders"
+        android:background="@drawable/check"
+        >
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_show_orders"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/scrollView_orders"
+        android:background="@drawable/check"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/ll_show_order_item_orders"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:id="@+id/tv_date_and_time_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_margin_medium"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_status_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_margin_medium"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginBottom="15dp"
+            />
+
+    <TextView
+        android:id="@+id/tv_username_orders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_margin_medium"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_marginBottom="10dp"
+        />
+
+        <TextView
+            android:id="@+id/tv_full_name_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_margin_medium"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_phone_number_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_margin_medium"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginBottom="30dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_margin_medium"
+            android:gravity="left"
+            android:text="Order item list"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/tv_ordered_items_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_margin_medium"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/tv_items_and_price_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_margin_medium"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            />
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

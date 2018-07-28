@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="elfak.diplomski.OrderingActivity"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerView_layout"
+        android:background="@drawable/wood"
+        android:paddingTop="?android:attr/actionBarSize"
+        >
+
+        <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/show_full_item_layout"
+        android:visibility="gone"
+        android:paddingTop="?android:attr/actionBarSize"
+        android:background="@drawable/wood_item"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000"
+            />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/show_full_item_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/name" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/leftOfImage"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.1" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/rightOfImage"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.9" />
+
+
+                <ImageView
+                    android:id="@+id/show_full_item_image_view"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toTopOf="@+id/show_full_item_name"
+                    app:layout_constraintLeft_toLeftOf="@id/leftOfImage"
+                    app:layout_constraintRight_toRightOf="@id/rightOfImage"
+                    app:layout_constraintTop_toBottomOf="@+id/show_full_item_category" />
+
+                <!-- Movie Title -->
+                <TextView
+                    android:id="@+id/show_full_item_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/name"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/show_full_item_rating"
+                    app:layout_constraintTop_toBottomOf="@+id/show_full_item_image_view" />
+
+                <!-- Rating -->
+                <TextView
+                    android:id="@+id/show_full_item_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/rating"
+                    app:layout_constraintBottom_toTopOf="@+id/show_full_item_price"
+                    app:layout_constraintTop_toBottomOf="@+id/show_full_item_name" />
+
+                <!-- Release Year -->
+                <TextView
+                    android:id="@+id/show_full_item_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/price"
+                    app:layout_constraintBottom_toTopOf="@+id/show_full_item_describe"
+                    app:layout_constraintTop_toBottomOf="@+id/show_full_item_rating" />
+
+                <!-- Genre -->
+                <TextView
+                    android:id="@+id/show_full_item_describe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/describe"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/show_full_item_price" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+        </ScrollView>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/popup_layout"
+        android:orientation="vertical"
+        android:paddingTop="?android:attr/actionBarSize"
+
+        >
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/recyclerView_show_comments_and_rating_layout"
+        android:background="@drawable/comment"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"
+            android:paddingTop="?android:attr/actionBarSize"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="?android:attr/actionBarSize"
+            >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView_show_comments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        android:paddingTop="?android:attr/actionBarSize"
+        />
+
+
+</android.support.constraint.ConstraintLayout>

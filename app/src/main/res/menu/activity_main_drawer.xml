@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_restaurant_menu"
+            android:icon="@drawable/ic_nav_restaurant_menu"
+            android:title="Restaurant menu" />
+        <item
+            android:id="@+id/nav_show_orders"
+            android:title="Show my orders"
+            android:icon="@drawable/ic_nav_show_orders"
+            />
+        <item
+            android:id="@+id/nav_edit_profile"
+            android:icon="@drawable/ic_nav_edit"
+            android:title="Edit my profile" />
+        <item
+            android:id="@+id/nav_delete_profile"
+            android:icon="@drawable/ic_nav_delete"
+            android:title="Delete profile" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_nav_logout"
+            android:title="Logout" />
+    </group>
+
+    <item android:title="Admin">
+        <menu>
+            <item
+                android:id="@+id/nav_add_items_in_menu"
+                android:icon="@drawable/ic_nav_input"
+                android:title="Add menu and items in menu" />
+            <item
+                android:id="@+id/nav_admin_on_off"
+                android:icon="@drawable/ic_nav_admin"
+                android:title="Admin on/off"
+                />
+        </menu>
+    </item>
+
+</menu>
