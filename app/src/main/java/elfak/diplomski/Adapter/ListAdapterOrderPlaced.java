@@ -39,8 +39,19 @@ public class ListAdapterOrderPlaced extends RecyclerView.Adapter<ListAdapterOrde
 
         holder.name.setText(mOrderPlaced.getItems().get(position).getName());
         holder.menuCategory.setText("Category: " + mOrderPlaced.getItems().get(position).getMenuCategory().getCategory());
-        holder.priceXQuantity.setText(mOrderPlaced.getItems().get(position).getPrice() + "   x" + Integer.toString(mOrderPlaced.getQuantitys().get(position)));
-        String[] parts = mOrderPlaced.getItems().get(position).getPrice().split(" ");
+
+        String[] parts;// = new String[2];
+
+        if (mOrderPlaced.getItems().get(position).getOnDiscount()) {
+            holder.priceXQuantity.setText(mOrderPlaced.getItems().get(position).getDiscountPrice() + "   x" + Integer.toString(mOrderPlaced.getQuantitys().get(position)));
+            parts = mOrderPlaced.getItems().get(position).getDiscountPrice().split(" ");
+        }
+        else {
+            holder.priceXQuantity.setText(mOrderPlaced.getItems().get(position).getPrice() + "   x" + Integer.toString(mOrderPlaced.getQuantitys().get(position)));
+            mOrderPlaced.getItems().get(position).getPrice().split(" ");
+            parts = mOrderPlaced.getItems().get(position).getPrice().split(" ");
+        }
+
         String fullPrice = String.valueOf((float) mOrderPlaced.getQuantitys().get(position) * Float.parseFloat(parts[0]) + " " + parts[1]);
         holder.totalPrice.setText(fullPrice);
 
@@ -74,8 +85,17 @@ public class ListAdapterOrderPlaced extends RecyclerView.Adapter<ListAdapterOrde
                 mOrderPlaced.getQuantitys().set(position, quant);
                 String fullPrice = "";
                 String[] parts = mOrderPlaced.getItems().get(position).getPrice().split(" ");
+
+                if (mOrderPlaced.getItems().get(position).getOnDiscount()) {
+                    parts = mOrderPlaced.getItems().get(position).getDiscountPrice().split(" ");
+                    holder.priceXQuantity.setText(mOrderPlaced.getItems().get(position).getDiscountPrice() + "   x" + Integer.toString(mOrderPlaced.getQuantitys().get(position)));
+                }
+                else {
+                    parts = mOrderPlaced.getItems().get(position).getPrice().split(" ");
+                    holder.priceXQuantity.setText(mOrderPlaced.getItems().get(position).getPrice() + "   x" + Integer.toString(mOrderPlaced.getQuantitys().get(position)));
+                }
+
                 fullPrice = String.valueOf((float) quant * Float.parseFloat(parts[0]) + " " + parts[1]);
-                holder.priceXQuantity.setText(mOrderPlaced.getItems().get(position).getPrice() + "   x" + Integer.toString(mOrderPlaced.getQuantitys().get(position)));
                 holder.totalPrice.setText(fullPrice);
                 //notifyDataSetChanged();
             }
@@ -97,9 +117,20 @@ public class ListAdapterOrderPlaced extends RecyclerView.Adapter<ListAdapterOrde
                 if (quant > 0) {
                     mOrderPlaced.getQuantitys().set(position, quant);
                     String fullPrice = "";
-                    String[] parts = mOrderPlaced.getItems().get(position).getPrice().split(" ");
+
+                    String[] parts;
+
+                    if (mOrderPlaced.getItems().get(position).getOnDiscount()) {
+                        parts = mOrderPlaced.getItems().get(position).getDiscountPrice().split(" ");
+                        holder.priceXQuantity.setText(mOrderPlaced.getItems().get(position).getDiscountPrice() + "   x" + Integer.toString(mOrderPlaced.getQuantitys().get(position)));
+                    }
+                    else {
+                        parts = mOrderPlaced.getItems().get(position).getPrice().split(" ");
+                        holder.priceXQuantity.setText(mOrderPlaced.getItems().get(position).getPrice() + "   x" + Integer.toString(mOrderPlaced.getQuantitys().get(position)));
+                    }
+
+
                     fullPrice = String.valueOf((float) quant * Float.parseFloat(parts[0]) + " " + parts[1]);
-                    holder.priceXQuantity.setText(mOrderPlaced.getItems().get(position).getPrice() + "   x" + Integer.toString(mOrderPlaced.getQuantitys().get(position)));
                     holder.totalPrice.setText(fullPrice);
                     //notifyDataSetChanged();
                 }

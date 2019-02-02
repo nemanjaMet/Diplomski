@@ -254,7 +254,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 } else {
                     //showProgress(false);
-                    Toast.makeText(getApplicationContext(), "Username is alredy taken!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Username is already taken!", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -360,7 +360,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     private void onLoginSuccess() {
-        Toast.makeText(getApplicationContext(), "Succes default login!", Toast.LENGTH_SHORT).show();
+        //***Toast.makeText(getApplicationContext(), "Success default login!", Toast.LENGTH_SHORT).show();
         attemptCreateProfile();
     }
 

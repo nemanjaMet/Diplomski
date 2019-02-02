@@ -267,11 +267,18 @@ public class RealmController {
             else if (categoryType.equals("On discount"))
                 realmResults = realm.where(Item.class).equalTo("onDiscount", true).findAll();
             else if (categoryType.equals("Best sellers")) {
-                realmResults = realm.where(Item.class).greaterThan("numberTimesOrdered", 0).findAll().sort("numberTimesOrdered", Sort.DESCENDING);
-                if (numberOfItemsInBestSeller != 0) {
+                //realmResults = realm.where(Item.class).greaterThan("numberTimesOrdered", 0).findAll().sort("numberTimesOrdered", Sort.DESCENDING);
+
+                if (numberOfItemsInBestSeller > 0)
+                    realmResults = realm.where(Item.class).greaterThan("numberTimesOrdered", 0).sort("numberTimesOrdered", Sort.DESCENDING).limit(numberOfItemsInBestSeller).findAll();
+                else
+                    realmResults = realm.where(Item.class).greaterThan("numberTimesOrdered", 0).findAll().sort("numberTimesOrdered", Sort.DESCENDING);
+
+                //if (numberOfItemsInBestSeller != 0 && realmResults.size() > numberOfItemsInBestSeller - 1) {
                     /** NE MOZE SE KASTUJE **/
-                    realmResults = (RealmResults<Item>) realmResults.subList(0, numberOfItemsInBestSeller);
-                }
+                    //realmResults = (RealmResults<Item>) realmResults.subList(0, numberOfItemsInBestSeller - 1);
+
+                //}
             }
             if (realmResults != null && !categoryType.equals("Best sellers")) {
                 realmResults = realmResults.sort("name", Sort.ASCENDING);
@@ -663,7 +670,7 @@ public class RealmController {
             }
 
 
-            final Realm finalRealm = realm;
+            //final Realm finalRealm = realm;
             realm.executeTransactionAsync(new Realm.Transaction() {
                                               @Override
                                               public void execute(Realm bgRealm) {

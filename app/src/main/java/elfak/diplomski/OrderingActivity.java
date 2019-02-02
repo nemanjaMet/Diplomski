@@ -13,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -74,6 +77,9 @@ public class OrderingActivity extends AppCompatActivity {
     private TextView tv_describe;
     private ImageView iv_image;
     private TextView tv_category;
+    private ImageView iv_recommended;
+    private ImageView iv_best_seller;
+    private ImageView iv_on_discount;
     RelativeLayout relative_layout_recyclerView;
     LinearLayout relative_layout_recyclerView_show_comments;
     ConstraintLayout linear_layout_showFullItem;
@@ -130,6 +136,9 @@ public class OrderingActivity extends AppCompatActivity {
             }
         });*/
 
+        iv_recommended = findViewById(R.id.show_full_item_ivRecommendation);
+        iv_best_seller = findViewById(R.id.show_full_item_ivBestSeller);
+        iv_on_discount = findViewById(R.id.show_full_item_ivOnDiscount);
         tv_name = findViewById(R.id.show_full_item_name);
         tv_rating =  findViewById(R.id.show_full_item_rating);
         tv_price =  findViewById(R.id.show_full_item_price);
@@ -652,6 +661,25 @@ public class OrderingActivity extends AppCompatActivity {
                                 tv_rating.setText("Rating: unrated");
                             }
 
+                            // -----------
+
+                            if (mItemList.get(itemPosition).getRecommended())
+                                iv_recommended.setVisibility(View.VISIBLE);
+                            else
+                                iv_recommended.setVisibility(View.INVISIBLE);
+
+                            if (mItemList.get(itemPosition).getOnDiscount())
+                                iv_on_discount.setVisibility(View.VISIBLE);
+                            else
+                                iv_on_discount.setVisibility(View.INVISIBLE);
+
+                            if (((ListAdapter) mRecyclerView.getAdapter()).isItemBestSeller(mItemList.get(itemPosition).getName()))
+                                iv_best_seller.setVisibility(View.VISIBLE);
+                            else
+                                iv_best_seller.setVisibility(View.INVISIBLE);
+
+                            // -----------
+
                             mItemList.get(itemPosition).addChangeListener(new RealmObjectChangeListener<RealmModel>() {
                                 @Override
                                 public void onChange(RealmModel realmModel, @Nullable ObjectChangeSet changeSet) {
@@ -662,7 +690,19 @@ public class OrderingActivity extends AppCompatActivity {
                                 }
                             });
 
-                            tv_price.setText("Price: " + mItemList.get(itemPosition).getPrice());
+
+                            if (mItemList.get(itemPosition).getOnDiscount()) {
+                                String textPrice = "Price: ";
+
+                                SpannableString spannable = new SpannableString(textPrice + String.valueOf(mItemList.get(itemPosition).getPrice()) + "  " + mItemList.get(itemPosition).getDiscountPrice());
+                                spannable.setSpan(new StrikethroughSpan(), textPrice.length(), textPrice.length() + String.valueOf(mItemList.get(itemPosition).getPrice()).length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                                //remoteViews.setTextViewText(R.id.itemText, spannable);
+                                tv_price.setText(spannable, TextView.BufferType.SPANNABLE);
+                            }
+                            else {
+                                tv_price.setText("Price: " + mItemList.get(itemPosition).getPrice());
+                            }
+
                             //tv_category.setText("Category: " + category);
                             tv_category.setText("* " + category + " *");
                             //Toast.makeText(getApplicationContext(), "Jeste VISIBLE", Toast.LENGTH_SHORT).show();
@@ -774,14 +814,26 @@ public class OrderingActivity extends AppCompatActivity {
         float sum = 0;
         String returnString = "";
         for (int i = 0; i<MainActivity.orderPlaced.getItems().size(); i++) {
-            String[] parts = MainActivity.orderPlaced.getItems().get(i).getPrice().split(" ");
+            String[] parts;// = MainActivity.orderPlaced.getItems().get(i).getPrice().split(" ");
+
+            if (MainActivity.orderPlaced.getItems().get(i).getOnDiscount())
+                parts = MainActivity.orderPlaced.getItems().get(i).getDiscountPrice().split(" ");
+            else
+                parts = MainActivity.orderPlaced.getItems().get(i).getPrice().split(" ");
+
             sum += Float.parseFloat(parts[0]) * (MainActivity.orderPlaced.getQuantitys().get(i));
         }
 
         returnString = String.valueOf(sum);
 
         if (MainActivity.orderPlaced.getItems().size() > 0) {
-            String[] parts = MainActivity.orderPlaced.getItems().get(0).getPrice().split(" ");
+            String[] parts;// = MainActivity.orderPlaced.getItems().get(0).getPrice().split(" ");
+
+            if (MainActivity.orderPlaced.getItems().get(0).getOnDiscount())
+                parts = MainActivity.orderPlaced.getItems().get(0).getDiscountPrice().split(" ");
+            else
+                parts = MainActivity.orderPlaced.getItems().get(0).getPrice().split(" ");
+
             returnString = returnString + " " + parts[1];
         }
 

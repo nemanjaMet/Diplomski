@@ -5,9 +5,11 @@
     android:padding="8dp" >
 
     <LinearLayout
+        android:id="@+id/topLine"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#000000"
+        android:orientation="horizontal"
         />
 
     
@@ -31,8 +33,11 @@
         android:layout_alignTop="@+id/thumbnail_listview"
         android:layout_toRightOf="@+id/thumbnail_listview"
         android:textSize="@dimen/name"
+        android:ellipsize="end"
         android:textStyle="bold"
         android:textColor="@color/white"
+        android:layout_toLeftOf="@id/ivRecommendation"
+        android:lines="2"
         />
 
     <!-- Rating -->
@@ -59,7 +64,7 @@
         android:ellipsize="end"
         android:layout_toRightOf="@+id/thumbnail_listview"
         android:layout_below="@+id/rating_listview"
-        android:layout_toLeftOf="@+id/btnAdd_listview"
+        android:layout_toLeftOf="@+id/price_listview"
         />
 
     <!-- Release Year -->
@@ -79,9 +84,10 @@
         android:focusable="false"
         android:textColor="@color/white"
         android:src="@drawable/listview_add_touch"
-        android:layout_below="@+id/name_listview"
+
         android:layout_alignRight="@+id/rating_listview"
         android:layout_alignEnd="@+id/rating_listview"
+        android:layout_centerVertical="true"
         />
 
     <ImageView
@@ -114,5 +120,34 @@
         android:layout_below="@+id/thumbnail_listview"
         />
 
+    <ImageView
+        android:id="@+id/ivOnDiscount"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/topLine"
+        android:background="@drawable/on_discount"
+        android:visibility="invisible"
+        />
+
+    <ImageView
+        android:id="@+id/ivBestSeller"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_toLeftOf="@id/ivOnDiscount"
+        android:layout_alignTop="@id/topLine"
+        android:background="@drawable/best_seller"
+        android:visibility="invisible"
+        />
+
+    <ImageView
+        android:id="@+id/ivRecommendation"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@id/topLine"
+        android:layout_toLeftOf="@id/ivBestSeller"
+        android:background="@drawable/recommendation"
+        android:visibility="invisible"
+        />
 
 </RelativeLayout>

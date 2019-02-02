@@ -37,13 +37,14 @@
         android:id="@+id/show_full_item_layout"
         android:visibility="gone"
         android:paddingTop="?android:attr/actionBarSize"
-        android:background="@drawable/wood_item"
+        android:background="@drawable/comment"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#000000"
+            android:layout_marginBottom="5dp"
             />
 
         <ScrollView
@@ -63,7 +64,55 @@
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/name" />
+                    android:textSize="@dimen/name"
+                    android:visibility="invisible"
+                    />
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ImageView
+                        android:id="@+id/show_full_item_ivOnDiscount"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/on_discount"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toStartOf="@+id/show_full_item_ivBestSeller"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        android:layout_margin="2dp"
+                        />
+
+                    <ImageView
+                        android:id="@+id/show_full_item_ivBestSeller"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/best_seller"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toStartOf="@+id/show_full_item_ivRecommendation"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/show_full_item_ivOnDiscount"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        android:layout_margin="2dp"
+                        />
+
+                    <ImageView
+                        android:id="@+id/show_full_item_ivRecommendation"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/recommendation"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/show_full_item_ivBestSeller"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        android:layout_margin="2dp"
+                        />
+
+                </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.Guideline
                     android:id="@+id/leftOfImage"

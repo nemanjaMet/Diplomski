@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity
     public static volatile Realm realm;
     public static OrderPlaced orderPlaced = new OrderPlaced();
     public static String username = "";
-    public static boolean adminFlag = true;
+    public static boolean adminFlag = false;
     public static int categorySize = 0;
     public static final String PREFS_NAME = "preferences";
     private static final String PREF_UNAME_ADMIN = "isAdmin";
@@ -456,6 +456,7 @@ public class MainActivity extends AppCompatActivity
         if (isAdmin != null && !isAdmin.isEmpty() && isAdmin.length() > 0)
         {
             adminFlag = Boolean.valueOf(isAdmin);
+            adminFlag = false; // ZAKOMENTARISATI UKOLIKO JE POTREBNO
         } /*else {
             Toast.makeText(getApplicationContext(), "Erron on loading admin flag", Toast.LENGTH_SHORT).show();
         }*/
@@ -491,7 +492,5 @@ public class MainActivity extends AppCompatActivity
 
         }
     }
-
-
 
 }

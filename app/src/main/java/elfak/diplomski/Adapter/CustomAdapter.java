@@ -37,8 +37,8 @@ public class CustomAdapter extends BaseAdapter {
     private volatile Realm realm;
     //int [] imageId;
     //**Bitmap[] bitmaps;
-    //***private List<MenuCategory> mFoodList = new ArrayList<>();
-    private RealmResults<MenuCategory> mFoodList;
+    //***private List<MenuCategory> categoryList = new ArrayList<>();
+    private RealmResults<MenuCategory> categoryList;
 
     private static LayoutInflater inflater = null;
 
@@ -52,10 +52,10 @@ public class CustomAdapter extends BaseAdapter {
         //**bitmaps = Images;
         inflater = (LayoutInflater)context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mFoodList = menuCategories;
+        categoryList = menuCategories;
         this.realm = realm;
 
-        mFoodList.addChangeListener(new RealmChangeListener<RealmResults<MenuCategory>>() {
+        categoryList.addChangeListener(new RealmChangeListener<RealmResults<MenuCategory>>() {
             @Override
             public void onChange(RealmResults<MenuCategory> menuCategories) {
                 notifyDataSetChanged();
@@ -70,7 +70,7 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mFoodList.size();
+        return categoryList.size();
     }
 
     @Override
@@ -102,17 +102,13 @@ public class CustomAdapter extends BaseAdapter {
         try {
             holder.textView =(TextView) rowView.findViewById(R.id.texts);
             holder.imageView =(ImageView) rowView.findViewById(R.id.menu_img);
-            //Picasso.with(context).load(bitmaps[position]) //Bitmap.createScaledBitmap(nameYourBitmap, newWidth, newHeight, true);
-            //***holder.textView.setText(result[position]);
-            holder.textView.setText(mFoodList.get(position).getCategory());
-            //holder.imageView.setImageResource(imageId[position]);
-            //holder.imageView.setImageBitmap(bitmaps[position]);
+            holder.textView.setText(categoryList.get(position).getCategory());
             int newWidth = rowView.getResources().getDisplayMetrics().widthPixels;
-            //int newHeight = (newWidth*bitmaps[position].getHeight())/bitmaps[position].getWidth();
             int newHeight = rowView.getResources().getDisplayMetrics().heightPixels;
-            //holder.imageView.setImageBitmap(bitmaps[position]);
-            //****holder.imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmaps[position], (int)(newWidth * 0.4), (int)(newHeight * 0.2), true));
-            holder.imageView.setImageBitmap(Bitmap.createScaledBitmap(byteToBitmap(mFoodList.get(position).getImage()), (int)(newWidth * 0.4), (int)(newHeight * 0.2), true));
+
+            holder.imageView.setImageBitmap(Bitmap.createScaledBitmap(byteToBitmap(categoryList.get(position).getImage()), (int)(newWidth * 0.4), (int)(newHeight * 0.2), true));
+            //holder.imageView.setImageBitmap(Bitmap.createBitmap(byteToBitmap(categoryList.get(position).getImage())));
+
             holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         } catch (Exception ex) {
             Toast.makeText(context, ex.toString(), Toast.LENGTH_SHORT).show();
@@ -126,14 +122,17 @@ public class CustomAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                //**Toast.makeText(context, "You Clicked "+(mFoodList.get(position).getCategory()), Toast.LENGTH_SHORT).show();
+                //**Toast.makeText(context, "You Clicked "+(categoryList.get(position).getCategory()), Toast.LENGTH_SHORT).show();
                 //Toast.makeText(context, "You Clicked "+result[position], Toast.LENGTH_SHORT).show();
                 //Bundle bundle = new Bundle();
-                //bundle.putParcelable("syncUser", mFoodList.get(position));
+                //bundle.putParcelable("syncUser", categoryList.get(position));
+                String testSs = String.valueOf(categoryList.get(position).getNumberOfItemsInBestSeller());
+                Integer test = categoryList.get(position).getNumberOfItemsInBestSeller();
+                String testString = categoryList.get(position).getCategory();
                 Intent intent = new Intent(context, OrderingActivity.class);
-                intent.putExtra("category", mFoodList.get(position).getCategory());
-                intent.putExtra("categoryType", mFoodList.get(position).getCategoryType());
-                intent.putExtra("numberOfItemsInBestSeller", mFoodList.get(position).getNumberOfItemsInBestSeller());
+                intent.putExtra("category", categoryList.get(position).getCategory());
+                intent.putExtra("categoryType", categoryList.get(position).getCategoryType());
+                intent.putExtra("numberOfItemsInBestSeller", categoryList.get(position).getNumberOfItemsInBestSeller());
                 intent.putExtra("shop_btn", "false");
                 context.startActivity(intent);
             }
@@ -149,7 +148,7 @@ public class CustomAdapter extends BaseAdapter {
             public boolean onLongClick(View view) {
                 //Toast.makeText(context, "LONG CLICK", Toast.LENGTH_SHORT).show();
                 if (MainActivity.adminFlag) {
-                    alertDialogDelete(mFoodList.get(position).getCategory(), position);
+                    alertDialogDelete(categoryList.get(position).getCategory(), position);
                 }
 
                 return true; //false;
@@ -189,7 +188,7 @@ public class CustomAdapter extends BaseAdapter {
                             // Test
                             //RealmController.deleteCategoryAndAllItems(realm, context, category);
                             realm.beginTransaction();
-                            mFoodList.get(position).deleteFromRealm();
+                            categoryList.get(position).deleteFromRealm();
                             realm.commitTransaction();
                             notifyDataSetChanged();
                             RealmController.deleteAllFoodWithNullCategory(realm, context); // cascade delete
@@ -199,13 +198,13 @@ public class CustomAdapter extends BaseAdapter {
                             // Making new list of category without deleted category
                             /*List<MenuCategory> menuCategories = new ArrayList<>();
 
-                            for (int i = 0; i < mFoodList.size(); i++) {
+                            for (int i = 0; i < categoryList.size(); i++) {
                                 if (i != position) {
-                                    menuCategories.add(mFoodList.get(i));
+                                    menuCategories.add(categoryList.get(i));
                                 }
                             }
 
-                            mFoodList = menuCategories;
+                            categoryList = menuCategories;
                             notifyDataSetChanged();*/
 
 
@@ -224,10 +223,10 @@ public class CustomAdapter extends BaseAdapter {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(context, AdminActivity.class);
-                        Bitmap bitmap = byteToBitmap(mFoodList.get(position).getImage());
+                        Bitmap bitmap = byteToBitmap(categoryList.get(position).getImage());
                         intent.putExtra("BitmapImage", bitmap);
-                        intent.putExtra("categoryName", mFoodList.get(position).getCategory());
-                        intent.putExtra("sortNumber", mFoodList.get(position).getSortNumber());
+                        intent.putExtra("categoryName", categoryList.get(position).getCategory());
+                        intent.putExtra("sortNumber", categoryList.get(position).getSortNumber());
                         context.startActivity(intent);
                     }
                 });

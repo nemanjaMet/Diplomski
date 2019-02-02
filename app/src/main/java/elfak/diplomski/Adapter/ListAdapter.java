@@ -7,6 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +27,7 @@ import javax.annotation.Nullable;
 
 import elfak.diplomski.Model.Item;
 import elfak.diplomski.R;
+import elfak.diplomski.Realm.RealmController;
 import io.realm.OrderedCollectionChangeSet;
 import io.realm.OrderedRealmCollectionChangeListener;
 import io.realm.Realm;
@@ -50,6 +55,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FoodViewHolder
     ///private LinkedList<String> itemsNameLinkedList;
     Map<String, Integer> nameDrawableList = new HashMap<String, Integer>();
     private int defaultDrawable = R.drawable.listview_add_touch;
+    RealmResults<Item> itemBestSellers;
 
     public ListAdapter(Context context, RealmResults<Item> followerList, Map<String, Integer> nameDrawableList, RelativeLayout relativeLayout, ConstraintLayout linearLayout_showFullItem, Realm realm) {
         this.mContext = context;
@@ -64,6 +70,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FoodViewHolder
         foodIterator = mItemList.iterator();
         foodIterator.hasNext();
 
+        itemBestSellers = RealmController.getFood(realm, mContext, "", "Best sellers", 10);
 
         setListenerOnData();
     }
@@ -137,7 +144,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FoodViewHolder
         //Use Glide to load the Image
         //Glide.with(mContext).load(movie.getThumbnailUrl()).centerCrop().into(holder.thumbNail);
         holder.thumbNail.setImageBitmap(byteToBitmap(item.getImage()));
-        holder.thumbNail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        holder.thumbNail.setScaleType(ImageView.ScaleType.FIT_XY);
         /*int newWidth = rowView.getResources().getDisplayMetrics().widthPixels;
         //int newHeight = (newWidth*bitmaps[position].getHeight())/bitmaps[position].getWidth();
         int newHeight = rowView.getResources().getDisplayMetrics().heightPixels;
@@ -149,6 +156,37 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FoodViewHolder
         holder.describe.setText("Describe: " + item.getDescribe());
         holder.price.setText("Price: " + String.valueOf(item.getPrice()));
 
+        if (item.getRecommended())
+            holder.ivRecommendation.setVisibility(View.VISIBLE);
+        else
+            holder.ivRecommendation.setVisibility(View.INVISIBLE);
+        if (item.getOnDiscount()) {
+            holder.ivOnDiscount.setVisibility(View.VISIBLE);
+
+            String textPrice = "Price: ";
+
+
+            SpannableString spannable = new SpannableString(textPrice + String.valueOf(item.getPrice()) + "  " + item.getDiscountPrice());
+            spannable.setSpan(new StrikethroughSpan(), textPrice.length(), textPrice.length() + String.valueOf(item.getPrice()).length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            //remoteViews.setTextViewText(R.id.itemText, spannable);
+            holder.price.setText(spannable, TextView.BufferType.SPANNABLE);
+            //String text = "<strike><font color=\'#888888\'>" + String.valueOf(item.getPrice()) + "</font></strike>";
+            //holder.price.setText("Price: " + spannable + "  " + item.getDiscountPrice(), TextView.BufferType.SPANNABLE);
+        }
+        else
+            holder.ivOnDiscount.setVisibility(View.INVISIBLE);
+        if (itemBestSellers != null && itemBestSellers.size() > 0)
+        {
+            for (int i = 0; i < itemBestSellers.size(); i++) {
+                if (itemBestSellers.get(i).getName().equals(item.getName()))
+                {
+                    holder.ivBestSeller.setVisibility(View.VISIBLE);
+                    break;
+                }
+            }
+        }
+        else
+            holder.ivBestSeller.setVisibility(View.INVISIBLE);
 
         /**
          * Set OnClickListener on the Button.
@@ -261,6 +299,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FoodViewHolder
         TextView describe;
         TextView price;
         //Button button;
+        ImageView ivOnDiscount;
+        ImageView ivRecommendation;
+        ImageView ivBestSeller;
 
         public FoodViewHolder(View itemView) {
             super(itemView);
@@ -272,6 +313,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FoodViewHolder
             price = (TextView) itemView.findViewById(R.id.price_listview);
             imageViewAdd = (ImageView) itemView.findViewById(R.id.btnAdd_listview);
             //button = (Button) itemView.findViewById(R.id.show_describe_listview);
+            ivOnDiscount = itemView.findViewById(R.id.ivOnDiscount);
+            ivRecommendation = itemView.findViewById(R.id.ivRecommendation);
+            ivBestSeller = itemView.findViewById(R.id.ivBestSeller);
         }
     }
 
@@ -479,4 +523,24 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.FoodViewHolder
         builder.show();
     }
 
+    public boolean isItemBestSeller(String itemName) {
+
+        boolean isItemBestSeller = false;
+
+        if (itemBestSellers != null && itemBestSellers.size() > 0)
+        {
+            for (int i = 0; i < itemBestSellers.size(); i++) {
+                if (itemBestSellers.get(i).getName().equals(itemName))
+                {
+                    isItemBestSeller = true;
+                    break;
+                }
+            }
+        }
+
+        return isItemBestSeller;
+    }
+
 }
+
+

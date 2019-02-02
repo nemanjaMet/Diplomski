@@ -20,7 +20,7 @@
         android:paddingTop="10dp"
         android:visibility="visible"
         android:id="@+id/rl_show_orders_items_orders"
-        android:background="@drawable/check"
+        android:background="@drawable/comment"
         >
 
     <android.support.v7.widget.RecyclerView
@@ -35,7 +35,7 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         android:id="@+id/scrollView_orders"
-        android:background="@drawable/check"
+        android:background="@drawable/comment"
         >
 
     <LinearLayout
